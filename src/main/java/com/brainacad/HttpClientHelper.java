@@ -2,25 +2,30 @@ package com.brainacad;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPatch;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
 import java.util.Map;
 
 import static org.apache.http.protocol.HTTP.USER_AGENT;
 
 public class HttpClientHelper {
 
-    public static HttpResponse get(String endpointUrl, String parameters){
-       //TODO: написать метод для GET запроса с хедерами по умолчанию
-       return null;
-    }
+    public static HttpResponse get(String endpointUrl, String parameters) throws IOException {
+            Map<String, String> headers=new HashMap<>();
+            headers.put("Content-Type", "application/json");
 
+            return get(endpointUrl, parameters, headers);
+    }
     //REST GET запрос
     public static HttpResponse get(String endpointUrl, String parameters, Map<String, String> headers) throws IOException {
         //Создаём экземпляр HTTP клиента
@@ -41,9 +46,11 @@ public class HttpClientHelper {
     }
 
 
-    public static HttpResponse post(String endpointUrl, String parameters){
-        //TODO: написать метод для POST запроса с хедерами по умолчанию
-        return null;
+    public static HttpResponse post(String endpointUrl, String parameters) throws IOException {
+        Map<String, String> headers=new HashMap<>();
+        headers.put("Content-Type", "application/json");
+
+        return post(endpointUrl, parameters, headers);
     }
 
     public static HttpResponse post(String endpointUrl, String body, Map<String, String> headers) throws IOException{
@@ -64,6 +71,68 @@ public class HttpClientHelper {
         HttpResponse response = client.execute(post);
 
         //возвращаем response
+        return response;
+    }
+
+
+    public static HttpResponse put(String endpointUrl, String parameters) throws IOException {
+        Map<String, String> headers=new HashMap<>();
+        headers.put("Content-Type", "application/json");
+
+        return put(endpointUrl,parameters,headers);
+    }
+
+    public static HttpResponse put(String endpointUrl, String body, Map<String, String> headers) throws IOException {
+        //Создаём экземпляр HTTP клиента
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpPut put = new HttpPut(endpointUrl);
+
+        //добавляем в запрос необходимые хедеры
+        for(String headerKey:headers.keySet()) {
+            put.addHeader(headerKey, headers.get(headerKey));
+        }
+        //добавляем к запросу тело запроса
+        put.setEntity(new StringEntity(body));
+
+        //выполняем запрос в HTTP клиенте и получаем ответ
+        HttpResponse response = client.execute(put);
+
+        //возвращаем response
+        return response;
+    }
+
+
+    public static HttpResponse patch (String endpointUrl, String parameters) throws IOException {
+        Map<String, String> headers=new HashMap<>();
+        headers.put("Content-Type", "application/json");
+
+        return patch(endpointUrl,parameters,headers);
+    }
+
+    public static HttpResponse patch (String endpointUrl, String body, Map<String, String> headers) throws IOException {
+        //Создаём экземпляр HTTP клиента
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpPatch patch = new HttpPatch(endpointUrl);
+
+        //добавляем в запрос необходимые хедеры
+        for (String headerKey : headers.keySet()) {
+            patch.addHeader(headerKey, headers.get(headerKey));
+        }
+        //добавляем к запросу тело запроса
+        patch.setEntity(new StringEntity(body));
+
+        //выполняем запрос в HTTP клиенте и получаем ответ
+        HttpResponse response = client.execute(patch);
+
+        return response;
+    }
+
+
+    public static HttpResponse delete (String endpointUrl) throws IOException {
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpDelete delete = new HttpDelete(endpointUrl);
+        HttpResponse response = client.execute(delete);
+
         return response;
     }
 
