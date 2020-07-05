@@ -152,6 +152,19 @@ public class RestTest{
         Assert.assertEquals("Response status code should be 204", 204, statusCode);
     }
 
+    @Test
+    public void stringFromJSON() throws IOException {
+        String endpoint="/api/users";
+        HttpResponse response = HttpClientHelper.get(URL+endpoint,"page=2");
+
+        //Конвертируем входящий поток тела ответа в строку
+        String body = HttpClientHelper.getBodyFromResponse(response);
+        String s =  JsonUtils.stringFromJSONByPath(body, "$.data.[*].email");
+        //Integer s =  JsonUtils.intFromJSONByPath(body, "$.data.[*].id");
+        System.out.println(s);
+        Assert.assertNotEquals("Body shouldn't be null", null, body);
+    }
+
 
     //TODO: напишите по тесткейсу на каждый вариант запроса на сайте https://reqres.in
     //TODO: в тескейсах проверьте Result Code и несколько параметров из JSON ответа (если он есть)

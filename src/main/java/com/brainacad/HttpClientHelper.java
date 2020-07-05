@@ -31,7 +31,7 @@ public class HttpClientHelper {
         //Создаём экземпляр HTTP клиента
         HttpClient client = HttpClientBuilder.create().build();
         //Создаём HTTP GET запрос из URL и параметров
-        HttpGet request = new HttpGet(endpointUrl+"?"+parameters);
+        HttpGet request = new HttpGet(endpointUrl+"?"+parameters); //? - это параметры
 
         //добавляем в запрос необходимые хедеры
         for(String headerKey:headers.keySet()) {
