@@ -26,6 +26,7 @@ public class ContractTest {
                 .log().status()
                 .log().body();
     }
+
     @Test//GET метод
     public void checkGetResponseBodyNotNull() {
         given()
@@ -47,11 +48,12 @@ public class ContractTest {
                 .when()
                 .post()
                 .then()
-               // .body(matchesJsonSchemaInClasspath("responseSchema.json"))
+                // .body(matchesJsonSchemaInClasspath("responseSchema.json"))
                 .statusCode(201)
                 .log().status()
                 .log().body();
     }
+
     @Test//POST метод
     public void checkPostResponseBodyNotNull() {
         given()
@@ -78,6 +80,7 @@ public class ContractTest {
                 .log().status()
                 .log().body();
     }
+
     @Test//PUT метод
     public void checkPutResponseBodyNotNull() {
         given()
@@ -93,7 +96,7 @@ public class ContractTest {
     }
 
     @Test //PATCH метод
-    public void checkPatchResponseStatusCode () {
+    public void checkPatchResponseStatusCode() {
         given()
                 .spec(REQUEST_SPEC_REGRES_IN)
                 .body("{\"name\": \"QA_PATCH\",\"job\": \"Auto\"}")
@@ -104,8 +107,9 @@ public class ContractTest {
                 .log().status()
                 .log().body();
     }
+
     @Test //PATCH метод
-    public void checkPatchResponseBodyNotNull () {
+    public void checkPatchResponseBodyNotNull() {
         given()
                 .spec(REQUEST_SPEC_REGRES_IN)
                 .body("")
@@ -119,7 +123,7 @@ public class ContractTest {
     }
 
     @Test //DELETE метод
-    public void checkDeleteResponseStatusCode () {
+    public void checkDeleteResponseStatusCode() {
         given()
                 .spec(REQUEST_SPEC_REGRES_IN)
                 .when()
@@ -129,6 +133,4 @@ public class ContractTest {
                 .log().status()
                 .log().body();
     }
-
-
 }

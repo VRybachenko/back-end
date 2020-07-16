@@ -21,20 +21,21 @@ import static org.apache.http.protocol.HTTP.USER_AGENT;
 public class HttpClientHelper {
 
     public static HttpResponse get(String endpointUrl, String parameters) throws IOException {
-            Map<String, String> headers=new HashMap<>();
-            headers.put("Content-Type", "application/json");
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Content-Type", "application/json");
 
-            return get(endpointUrl, parameters, headers);
+        return get(endpointUrl, parameters, headers);
     }
+
     //REST GET запрос
     public static HttpResponse get(String endpointUrl, String parameters, Map<String, String> headers) throws IOException {
         //Создаём экземпляр HTTP клиента
         HttpClient client = HttpClientBuilder.create().build();
         //Создаём HTTP GET запрос из URL и параметров
-        HttpGet request = new HttpGet(endpointUrl+"?"+parameters); //? - это параметры
+        HttpGet request = new HttpGet(endpointUrl + "?" + parameters); //? - это параметры
 
         //добавляем в запрос необходимые хедеры
-        for(String headerKey:headers.keySet()) {
+        for (String headerKey : headers.keySet()) {
             request.addHeader(headerKey, headers.get(headerKey));
         }
 
@@ -47,20 +48,20 @@ public class HttpClientHelper {
 
 
     public static HttpResponse post(String endpointUrl, String parameters) throws IOException {
-        Map<String, String> headers=new HashMap<>();
+        Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
 
         return post(endpointUrl, parameters, headers);
     }
 
-    public static HttpResponse post(String endpointUrl, String body, Map<String, String> headers) throws IOException{
+    public static HttpResponse post(String endpointUrl, String body, Map<String, String> headers) throws IOException {
         //Создаём экземпляр HTTP клиента
         HttpClient client = HttpClientBuilder.create().build();
         //Создаём HTTP POST запрос из URL и параметров
         HttpPost post = new HttpPost(endpointUrl);
 
         //добавляем в запрос необходимые хедеры
-        for(String headerKey:headers.keySet()) {
+        for (String headerKey : headers.keySet()) {
             post.addHeader(headerKey, headers.get(headerKey));
         }
 
@@ -76,10 +77,10 @@ public class HttpClientHelper {
 
 
     public static HttpResponse put(String endpointUrl, String parameters) throws IOException {
-        Map<String, String> headers=new HashMap<>();
+        Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
 
-        return put(endpointUrl,parameters,headers);
+        return put(endpointUrl, parameters, headers);
     }
 
     public static HttpResponse put(String endpointUrl, String body, Map<String, String> headers) throws IOException {
@@ -88,7 +89,7 @@ public class HttpClientHelper {
         HttpPut put = new HttpPut(endpointUrl);
 
         //добавляем в запрос необходимые хедеры
-        for(String headerKey:headers.keySet()) {
+        for (String headerKey : headers.keySet()) {
             put.addHeader(headerKey, headers.get(headerKey));
         }
         //добавляем к запросу тело запроса
@@ -102,14 +103,14 @@ public class HttpClientHelper {
     }
 
 
-    public static HttpResponse patch (String endpointUrl, String parameters) throws IOException {
-        Map<String, String> headers=new HashMap<>();
+    public static HttpResponse patch(String endpointUrl, String parameters) throws IOException {
+        Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
 
-        return patch(endpointUrl,parameters,headers);
+        return patch(endpointUrl, parameters, headers);
     }
 
-    public static HttpResponse patch (String endpointUrl, String body, Map<String, String> headers) throws IOException {
+    public static HttpResponse patch(String endpointUrl, String body, Map<String, String> headers) throws IOException {
         //Создаём экземпляр HTTP клиента
         HttpClient client = HttpClientBuilder.create().build();
         HttpPatch patch = new HttpPatch(endpointUrl);
@@ -128,7 +129,7 @@ public class HttpClientHelper {
     }
 
 
-    public static HttpResponse delete (String endpointUrl) throws IOException {
+    public static HttpResponse delete(String endpointUrl) throws IOException {
         HttpClient client = HttpClientBuilder.create().build();
         HttpDelete delete = new HttpDelete(endpointUrl);
         HttpResponse response = client.execute(delete);
