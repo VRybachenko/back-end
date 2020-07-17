@@ -8,6 +8,7 @@ import io.restassured.response.ValidatableResponse;
 
 import static com.brainacad.RequestSpec.REQUEST_SPEC_REGRES_IN;
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.equalTo;
 
 public class Steps {
 
@@ -59,8 +60,14 @@ public class Steps {
                 .then();
     }
 
-    @When("^ I Login as (User|Admin))$")
+   /* @When("^ I Login as (User|Admin))$")
     public void test(){
         
+    }*/
+
+    @Then("I get response with username {string} and job {string}")
+    public void i_get_response_status_code_and_username_and_job(String name, String job) {
+        response.body("name", equalTo(name))
+                .body("job", equalTo(job));
     }
 }

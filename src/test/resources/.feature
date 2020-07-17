@@ -15,5 +15,5 @@ Feature: Check reqres.in
     Examples:
       | name  | job  | code |
       | vasya | qa   | 201  |
-      | petya | dev  | 200  |
+      | petya | dev  | 201  |
       | kolya | auto | 201  |
