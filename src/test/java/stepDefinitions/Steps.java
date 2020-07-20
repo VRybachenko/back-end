@@ -6,9 +6,11 @@ import io.cucumber.java.en.When;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
 
-import static com.brainacad.RequestSpec.REQUEST_SPEC_REGRES_IN;
+import static groovy.xml.Entity.not;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.Matchers.hasKey;
 
 public class Steps {
 
@@ -69,5 +71,23 @@ public class Steps {
     public void i_get_response_status_code_and_username_and_job(String name, String job) {
         response.body("name", equalTo(name))
                 .body("job", equalTo(job));
+    }
+
+    @When("I send an empty body")
+    public void i_send_an_empty_body() {
+        this.response = given()
+                .baseUri(url)
+                .basePath("/api/users")
+                .contentType(ContentType.JSON)
+                //.body("{\"name\": \"QA_PUT\",\"job\": \"Auto\"}")
+                .when()
+                .post()
+                .then();
+    }
+
+    @Then("I check if the response doesn't has name and job fields")
+    public void i_check_if_the_response_doesnt_has_name_and_job_fields() {
+        response.body("$", not(hasKey("name")));
+        response.body("$", not(hasKey("job")));
     }
 }

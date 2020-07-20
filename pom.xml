@@ -24,12 +24,6 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-            <scope>test</scope>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
@@ -92,6 +86,12 @@
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-cucumber5-jvm</artifactId>
             <version>2.13.5</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
